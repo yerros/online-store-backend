@@ -2,26 +2,24 @@ const nodeMailer = require("nodemailer");
 const moment = require("moment");
 const cron = require("node-cron");
 const fs = require("fs");
-require("dotenv");
 const OrderModel = require("../models/order.model");
 const Mustache = require("mustache");
 
 const sendMail = async payload => {
   const template = fs.readFileSync("./helper/template.html", "utf8");
   let transporter = nodeMailer.createTransport({
-    host: process.env.MAILGUN_SMTP_SERVER,
-    port: process.env.MAILGUN_SMTP_PORT,
+    host: "smtp.mailtrap.io",
+    port: 587,
+    secure: false,
     auth: {
-      user: process.env.MAILGUN_SMTP_LOGIN,
-      pass: process.env.MAILGUN_SMTP_PASSWORD,
-      domain: process.env.MAILGUN_DOMAIN
-    },
-    dom
+      user: process.env.mailtrap_USER,
+      pass: process.env.mailtrap_PASS
+    }
   });
 
   let mail = {
-    from: "info@eversick.co",
-    to: "yerisrifan@gmail.com",
+    from: "info2@eversick.co",
+    to: "bahtiaryeris@gmail.com",
     subject: `Thanks for your order ${payload._id}`,
     html: Mustache.render(template, payload)
   };
