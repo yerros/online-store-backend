@@ -9,12 +9,12 @@ const Mustache = require("mustache");
 const sendMail = async payload => {
   const template = fs.readFileSync("./helper/template.html", "utf8");
   let transporter = nodeMailer.createTransport({
-    host: "smtp.sendgrid.net",
-    port: 465,
+    host: process.env.MAILGUN_SMTP_SERVER,
+    port: process.env.MAILGUN_SMTP_PORT,
     secure: true,
     auth: {
-      user: process.env.SENDGRID_USERNAME,
-      pass: process.env.SENDGRID_PASSWORD
+      user: process.env.MAILGUN_SMTP_LOGIN,
+      pass: process.env.MAILGUN_SMTP_PASSWORD
     },
     tls: {
       rejectUnauthorized: false
