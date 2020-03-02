@@ -13,8 +13,10 @@ const sendMail = async payload => {
     port: process.env.MAILGUN_SMTP_PORT,
     auth: {
       user: process.env.MAILGUN_SMTP_LOGIN,
-      pass: process.env.MAILGUN_SMTP_PASSWORD
-    }
+      pass: process.env.MAILGUN_SMTP_PASSWORD,
+      domain: process.env.MAILGUN_DOMAIN
+    },
+    dom
   });
 
   let mail = {
