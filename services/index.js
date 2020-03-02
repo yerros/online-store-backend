@@ -11,13 +11,9 @@ const sendMail = async payload => {
   let transporter = nodeMailer.createTransport({
     host: process.env.MAILGUN_SMTP_SERVER,
     port: process.env.MAILGUN_SMTP_PORT,
-    secure: true,
     auth: {
       user: process.env.MAILGUN_SMTP_LOGIN,
       pass: process.env.MAILGUN_SMTP_PASSWORD
-    },
-    tls: {
-      rejectUnauthorized: false
     }
   });
 
