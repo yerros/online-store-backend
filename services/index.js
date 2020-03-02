@@ -11,10 +11,13 @@ const sendMail = async payload => {
   let transporter = nodeMailer.createTransport({
     host: "smtp.sendgrid.net",
     port: 465,
-    secure: true,
+    secure: false,
     auth: {
       user: "apikey",
       pass: process.env.SENDGRID_API_KEY
+    },
+    tls: {
+      rejectUnauthorized: false
     }
   });
 
@@ -24,7 +27,7 @@ const sendMail = async payload => {
     subject: `Thanks for your order ${payload._id}`,
     html: Mustache.render(template, payload)
   };
-  transporter.sendMail(mail);
+  transporter.sendMail(mail).catch(console.error);
   console.log("email send");
 };
 
