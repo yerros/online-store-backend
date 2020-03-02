@@ -21,10 +21,10 @@ const sendMail = async payload => {
 =======
     host: "smtp.sendgrid.net",
     port: 465,
-    secure: false,
+    secure: true,
     auth: {
-      user: "apikey",
-      pass: process.env.SENDGRID_API_KEY
+      user: process.env.SENDGRID_USERNAME,
+      pass: process.env.SENDGRID_PASSWORD
     },
     tls: {
       rejectUnauthorized: false
