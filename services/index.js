@@ -2,6 +2,7 @@ const nodeMailer = require("nodemailer");
 const moment = require("moment");
 const cron = require("node-cron");
 const fs = require("fs");
+require("dotenv");
 const OrderModel = require("../models/order.model");
 const Mustache = require("mustache");
 
@@ -13,8 +14,7 @@ const sendMail = async payload => {
     secure: true,
     auth: {
       user: "apikey",
-      pass:
-        "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"
+      pass: process.env.SENDGRID_API_KEY
     }
   });
 
