@@ -15,7 +15,7 @@ app.use(
 noticeOrder();
 //cors
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "https://online-store-react.now.sh",
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 app.use(cors(corsOptions));
