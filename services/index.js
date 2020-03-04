@@ -7,27 +7,29 @@ require("dotenv");
 const OrderModel = require("../models/order.model");
 const Mustache = require("mustache");
 
+//send Email
 const sendMail = async payload => {
   const template = fs.readFileSync("./helper/template.html", "utf8");
   let transporter = nodeMailer.createTransport({
-    host: "smtp.sendgrid.net",
-    port: 465,
-    secure: true,
+    host: "smtp.mailtrap.io",
+    port: 587,
+    secure: false,
     auth: {
-      user: "apikey",
-      pass: process.env.SENDGRID_API_KEY
+      user: process.env.mailtrap_USER,
+      pass: process.env.mailtrap_PASS
     }
   });
 
   let mail = {
-    from: "info@eversick.co",
-    to: "yerisrifan@gmail.com",
+    from: "info2@eversick.co",
+    to: "bahtiaryeris@gmail.com",
     subject: `Thanks for your order ${payload._id}`,
     html: Mustache.render(template, payload)
   };
-  transporter.sendMail(mail);
+  transporter.sendMail(mail).catch(console.error);
   console.log("email send");
 };
+
 
 // check order status return UNPAID status
 const checkOrder = async () => {
