@@ -2,6 +2,7 @@ const nodeMailer = require("nodemailer");
 const moment = require("moment");
 const cron = require("node-cron");
 const fs = require("fs");
+const cloudinary = require('cloudinary').v2
 require("dotenv");
 const OrderModel = require("../models/order.model");
 const Mustache = require("mustache");
@@ -55,7 +56,7 @@ const setExpired = async orderID => {
 
 // Cron job Every 23.59
 const noticeOrder = async () => {
-  cron.schedule("59 23 * * *", async function() {
+  cron.schedule("59 23 * * *", async function () {
     console.log("cron running");
     const today = moment(new Date()).format();
     const unpaid = await checkOrder();
@@ -73,4 +74,19 @@ const noticeOrder = async () => {
     //noticeMail;
   });
 };
-module.exports = { sendMail, noticeOrder };
+
+const uploadCloudinary = async (image) => {
+  return new Promise((resolve, reject) => {
+    cloudinary.config({
+      cloud_name: 'diiizbyxa',
+      api_key: '418657921356493',
+      api_secret: 'I2JeNXRXp3AqGPiF3CzcTYUBXC4'
+    })
+
+    cloudinary.uploader.upload(image, (err, result) => {
+      if (err) reject(err);
+      resolve(result)
+    })
+  })
+}
+module.exports = { sendMail, noticeOrder, uploadCloudinary };
