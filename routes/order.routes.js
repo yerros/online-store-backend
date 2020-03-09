@@ -33,7 +33,7 @@ router.get("/", async (req, res) => {
   res.send(order);
 });
 
-router.post("/", async (req, res) => {
+router.post("/transaction", async (req, res) => {
   const order = req.body;
   res.send(order);
 });
