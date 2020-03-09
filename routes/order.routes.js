@@ -36,8 +36,8 @@ router.get("/", async (req, res) => {
 router.post("/transaction", async (req, res) => {
   const body = req.body;
   const query = req.query;
-  console.log(body + " " + query);
-  res.send(order);
+  console.log(JSON.parse(body));
+  res.send(body);
 });
 
 // router.get("/:id", async (req, res) => {
