@@ -11,12 +11,24 @@ const Mustache = require("mustache");
 const sendMail = async payload => {
   const template = fs.readFileSync("./helper/template.html", "utf8");
   let transporter = nodeMailer.createTransport({
+<<<<<<< HEAD
     host: "smtp.mailtrap.io",
     port: 587,
     secure: false,
     auth: {
       user: process.env.mailtrap_USER,
       pass: process.env.mailtrap_PASS
+=======
+    host: "smtp.sendgrid.net",
+    port: 465,
+    secure: false,
+    auth: {
+      user: "apikey",
+      pass: process.env.SENDGRID_API_KEY
+    },
+    tls: {
+      rejectUnauthorized: false
+>>>>>>> remove sendgrid API
     }
   });
 
