@@ -36,7 +36,7 @@ router.get("/", async (req, res) => {
 router.post("/transaction", async (req, res) => {
   const body = req.body;
   const query = req.query;
-  console.log(JSON.parse(body));
+  console.log(JSON.stringify(body));
   res.send(body);
 });
 
