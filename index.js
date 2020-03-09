@@ -1,6 +1,7 @@
 const express = require("express");
 const { static } = require("express");
 const bodyParser = require("body-parser");
+const morgan = require("morgan");
 const fs = require("fs");
 const connectDB = require("./config/db");
 const cors = require("cors");
@@ -12,11 +13,12 @@ app.use(
     extended: false
   })
 );
+app.use(morgan("tiny"));
 noticeOrder();
 //cors
 const corsOptions = {
-  origin: "https://online-store-react.now.sh",
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  origin: ["https://online-store-react.now.sh", "http://localhost:3000"],
+  optionsSuccessStatus: 200
 };
 app.use(cors(corsOptions));
 //conect database
@@ -28,11 +30,6 @@ app.get("/", (req, res) => {
 });
 
 app.use("/images/", static("public/img/"));
-// define routes
-// app.use('/user', require('./routes/user.routes'))
-// app.use('/admin', require('./routes/admin.routes'))
-// app.use('/category', require('./routes/category.routes'))
-
 app.use("/api/user", require("./routes/user.routes"));
 app.use("/api/category", require("./routes/category.routes"));
 app.use("/api/coupon", require("./routes/coupon.routes"));
