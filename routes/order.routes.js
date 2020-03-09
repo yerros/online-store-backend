@@ -33,6 +33,11 @@ router.get("/", async (req, res) => {
   res.send(order);
 });
 
+router.post("/", async (req, res) => {
+  const order = req.body;
+  res.send(order);
+});
+
 // router.get("/:id", async (req, res) => {
 //   const order = await OrderModel.findById(req.params.id).populate(
 //     "customer items"
