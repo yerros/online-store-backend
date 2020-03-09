@@ -34,10 +34,10 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/transaction", async (req, res) => {
-  const { transaction_status, transaction_id } = req.body;
+  const { transaction_status, order_id } = req.body;
   if (transaction_status === "capture" || transaction_status === "settlement") {
     await OrderModel.findByIdAndUpdate(
-      { _id: transaction_id },
+      { _id: order_id },
       { $set: { status: "PAID" } }
     );
   }
