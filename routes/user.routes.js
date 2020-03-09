@@ -76,7 +76,8 @@ router.post("/register", async (req, res) => {
       if (err) throw err;
       res.json({
         message: "User added succefully",
-        token
+        token,
+        user
       });
     });
   } catch (error) {

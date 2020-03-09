@@ -1,7 +1,7 @@
 const express = require("express");
 const multer = require("multer");
 const path = require("path");
-const fs = require("fs");
+const { uploadCloudinary } = require('../services')
 const route = express.Router();
 require("dotenv").config();
 const { adminMiddleware } = require("../middleware");
@@ -99,13 +99,18 @@ route.post(
   "/img-upload",
   adminMiddleware,
   upload.single("products"),
-  (req, res) => {
+  async (req, res) => {
+
     try {
       const url = `${process.env.BaseUrl}/images/`;
-      res.json({
-        message: "Success",
-        img: url + req.file.filename
-      });
+      await uploadCloudinary(req.file.path)
+        .then(result => {
+          res.json({
+            message: "Success",
+            img: url + req.file.filename,
+            remote: result.url
+          });
+        })
     } catch (error) {
       res.sendStatus(400);
     }
