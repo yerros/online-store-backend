@@ -34,10 +34,13 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/transaction", async (req, res) => {
-  const body = req.body;
-  const query = req.query;
-  console.log(JSON.stringify(body));
-  res.send(body);
+  const { transaction_status, transaction_id } = req.body;
+  if (transaction_status === "capture" || transaction_status === "settlement") {
+    await OrderModel.findByIdAndUpdate(
+      { _id: transaction_id },
+      { $set: { status: "PAID" } }
+    );
+  }
 });
 
 // router.get("/:id", async (req, res) => {
