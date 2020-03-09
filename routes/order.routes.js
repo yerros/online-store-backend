@@ -34,7 +34,9 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/transaction", async (req, res) => {
-  const order = req.body;
+  const body = req.body;
+  const query = req.query;
+  console.log(body + " " + query);
   res.send(order);
 });
 
